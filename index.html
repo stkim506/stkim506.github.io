@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>경북대학교 행정학과 김석태 교수</title>
+  <title>경북대학교 행정학과 김석태 교수 (임시 웹사이트)</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -11,7 +11,7 @@
       <div class="logo-box">KNU</div>
       <div class="site-title">
         <div class="site-main">경북대학교 행정학과</div>
-        <div class="site-sub">김석태 교수 연구실</div>
+        <div class="site-sub">김석태 교수 연구실 · 임시 웹사이트</div>
       </div>
     </div>
     <nav class="main-nav">
@@ -19,7 +19,6 @@
       <a href="#profile">프로필</a>
       <a href="#papers">논문</a>
       <a href="#columns">칼럼</a>
-      <a href="#contact">연락처</a>
     </nav>
   </header>
 
@@ -31,16 +30,16 @@
         <li><a href="#profile">프로필</a></li>
         <li><a href="#papers">논문 목록</a></li>
         <li><a href="#columns">칼럼 목록</a></li>
-        <li><a href="#contact">연락처</a></li>
       </ul>
+      <p class="temp-note">※ 현재 페이지는 임시 웹사이트입니다.</p>
     </aside>
 
     <main class="content">
       <section id="home">
-        <h1>김석태 교수 웹페이지</h1>
+        <h1>김석태 교수 웹페이지 (임시)</h1>
         <p>
-          이 페이지는 경북대학교 행정학과 김석태 교수님의 연구 및 칼럼을 소개하는
-          간단한 개인 웹사이트입니다.
+          이 페이지는 경북대학교 행정학과 <strong>김석태</strong> 교수님의 연구 및 칼럼을
+          정리하기 위한 <strong>임시 웹사이트(초안)</strong>입니다.
         </p>
       </section>
 
@@ -50,19 +49,24 @@
         <ul>
           <li>소속: 경북대학교 행정학과</li>
           <li>전공: 행정학 / 지방자치 / 정책학 (예시)</li>
-          <li>연구관심: 지방자치, 주민자치, 거버넌스 등</li>
+          <li>연구관심: 지방자치, 주민자치, 자치사상, 지방재정 등</li>
         </ul>
       </section>
 
       <section id="papers">
         <h1>논문 목록</h1>
         <p>
-          GitHub 저장소의 <code>papers</code> 폴더에 논문 파일을 업로드하면
+          GitHub 저장소(<code>stkim506/stkim506.github.io</code>)의
+          <code>papers</code> 폴더 아래에 논문 파일을 업로드하면
           아래 목록이 자동으로 갱신됩니다.<br />
           파일 이름 형식(예시): <code>2024_행정학연구_주민자치와-풀뿌리-민주주의.hwpx</code>
         </p>
 
-        <table class="list-table" id="papers-table">
+        <h2 class="subsection-title">1. 행정이론</h2>
+        <p class="subsection-desc">
+          → <code>papers/admin-theory</code> 폴더에 파일을 업로드하세요.
+        </p>
+        <table class="list-table" id="papers-admin">
           <thead>
             <tr>
               <th>연도</th>
@@ -71,8 +75,55 @@
               <th>파일</th>
             </tr>
           </thead>
-          <tbody>
-          </tbody>
+          <tbody></tbody>
+        </table>
+
+        <h2 class="subsection-title">2. 지방자치</h2>
+        <p class="subsection-desc">
+          → <code>papers/local-autonomy</code> 폴더에 파일을 업로드하세요.
+        </p>
+        <table class="list-table" id="papers-local">
+          <thead>
+            <tr>
+              <th>연도</th>
+              <th>제목</th>
+              <th>저널</th>
+              <th>파일</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <h2 class="subsection-title">3. 자치사상</h2>
+        <p class="subsection-desc">
+          → <code>papers/self-governance</code> 폴더에 파일을 업로드하세요.
+        </p>
+        <table class="list-table" id="papers-thought">
+          <thead>
+            <tr>
+              <th>연도</th>
+              <th>제목</th>
+              <th>저널</th>
+              <th>파일</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <h2 class="subsection-title">4. 지방재정</h2>
+        <p class="subsection-desc">
+          → <code>papers/local-finance</code> 폴더에 파일을 업로드하세요.
+        </p>
+        <table class="list-table" id="papers-finance">
+          <thead>
+            <tr>
+              <th>연도</th>
+              <th>제목</th>
+              <th>저널</th>
+              <th>파일</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
         </table>
       </section>
 
@@ -81,7 +132,8 @@
         <p>
           GitHub 저장소의 <code>columns</code> 폴더에 칼럼 파일을 업로드하면
           아래 목록이 자동으로 갱신됩니다.<br />
-          파일 이름 형식(예시): <code>2023_○○신문_주민자치회와-풀뿌리-민주주의.hwpx</code>
+          파일 이름 형식(예시):
+          <code>2023_경향신문_주민자치회와-풀뿌리-민주주의.hwpx</code>
         </p>
 
         <table class="list-table" id="columns-table">
@@ -93,23 +145,14 @@
               <th>파일</th>
             </tr>
           </thead>
-          <tbody>
-          </tbody>
+          <tbody></tbody>
         </table>
-      </section>
-
-      <section id="contact">
-        <h1>연락처</h1>
-        <ul>
-          <li>이메일: example@knu.ac.kr</li>
-          <li>연구실: 경북대학교 ○○관 ○○호</li>
-        </ul>
       </section>
     </main>
   </div>
 
   <footer class="footer">
-    <p>&copy; 2025 경북대학교 행정학과 김석태 교수 웹페이지.</p>
+    <p>&copy; 2025 경북대학교 행정학과 김석태 교수 임시 웹사이트.</p>
   </footer>
 
   <script src="script.js"></script>

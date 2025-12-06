@@ -1,16 +1,13 @@
+// GitHub 계정/저장소 정보 (stkim506)
 function getRepoInfo() {
-  // 예: https://eugeniakkim.github.io/
-  const host = window.location.hostname; // eugeniakkim.github.io
-  const parts = host.split('.');
-  const owner = parts[0];
-  const repo = owner + '.github.io';
+  const owner = 'stkim506';
+  const repo = 'stkim506.github.io';
   return { owner, repo };
 }
 
-function parseFileInfo(name, type) {
-  // 파일명 예시:
-  // 논문: 2024_행정학연구_주민자치와-풀뿌리-민주주의.hwpx
-  // 칼럼: 2023_○○신문_주민자치회와-풀뿌리-민주주의.hwpx
+// 파일명에서 연도 / 저널(또는 매체) / 제목 추출
+// 예: 2024_행정학연구_주민자치와-풀뿌리-민주주의.hwpx
+function parseFileInfo(name) {
   const noExt = name.replace(/\.[^/.]+$/, '');
   const parts = noExt.split('_');
 
@@ -31,7 +28,8 @@ function parseFileInfo(name, type) {
   };
 }
 
-async function loadFromGithub(path, tableBodySelector, type) {
+// GitHub API로 특정 폴더(예: papers/admin-theory)를 읽어와 테이블에 채우기
+async function loadFromGithub(path, tableBodySelector) {
   const { owner, repo } = getRepoInfo();
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
@@ -49,7 +47,7 @@ async function loadFromGithub(path, tableBodySelector, type) {
     tbody.innerHTML = '';
 
     files.forEach(item => {
-      const info = parseFileInfo(item.name, type);
+      const info = parseFileInfo(item.name);
       const tr = document.createElement('tr');
 
       const yearTd = document.createElement('td');
@@ -80,6 +78,12 @@ async function loadFromGithub(path, tableBodySelector, type) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  loadFromGithub('papers', '#papers-table tbody', 'paper');
-  loadFromGithub('columns', '#columns-table tbody', 'column');
+  // 논문 네 가지 분류
+  loadFromGithub('papers/admin-theory', '#papers-admin tbody');       // 1. 행정이론
+  loadFromGithub('papers/local-autonomy', '#papers-local tbody');     // 2. 지방자치
+  loadFromGithub('papers/self-governance', '#papers-thought tbody');  // 3. 자치사상
+  loadFromGithub('papers/local-finance', '#papers-finance tbody');    // 4. 지방재정
+
+  // 칼럼
+  loadFromGithub('columns', '#columns-table tbody');
 });

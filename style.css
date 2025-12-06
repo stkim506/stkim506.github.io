@@ -65,7 +65,7 @@ a {
 
 .layout {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 230px 1fr;
   max-width: 1200px;
   margin: 20px auto;
   gap: 20px;
@@ -76,6 +76,7 @@ a {
   padding: 20px;
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  font-size: 14px;
 }
 
 .side-nav h2 {
@@ -100,6 +101,12 @@ a {
 
 .side-nav a:hover {
   text-decoration: underline;
+}
+
+.temp-note {
+  margin-top: 16px;
+  font-size: 12px;
+  color: #555;
 }
 
 .content {
@@ -132,10 +139,21 @@ a {
   margin-top: 6px;
 }
 
+.subsection-title {
+  margin-top: 24px;
+  font-size: 16px;
+}
+
+.subsection-desc {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
 .list-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 14px;
+  margin-top: 8px;
   font-size: 14px;
 }
 
