@@ -31,7 +31,7 @@
         <li><a href="#papers">논문 목록</a></li>
         <li><a href="#columns">칼럼 목록</a></li>
       </ul>
-      <p class="temp-note">※ 현재 페이지는 임시 웹사이트입니다.</p>
+      <p class="temp-note">※ 현재 페이지는 임시 웹사이트입니다.<br>폴더 내 파일 목록이 자동으로 반영됩니다.</p>
     </aside>
 
     <main class="content">
@@ -39,8 +39,9 @@
         <h1>김석태 교수 웹페이지 (임시)</h1>
         <p>
           이 페이지는 경북대학교 <strong>김석태</strong> 명예교수님의 연구 및 칼럼을
-          정리하기 위한 임시 웹사이트입니다. 아래 논문 및 칼럼 목록은 저장소 내 관련
-          폴더에 올라간 파일을 자동으로 불러와 보여줍니다.
+          정리하기 위한 임시 웹사이트입니다. 논문과 칼럼 목록은 GitHub 저장소의
+          <code>papers</code>, <code>columns</code> 폴더에 올라간 파일을
+          GitHub API를 통해 자동으로 불러와 표시합니다.
         </p>
       </section>
 
@@ -55,11 +56,11 @@
       <section id="papers">
         <h1>논문 목록</h1>
         <p class="section-desc">
-          아래 목록은 저장소의 <code>papers</code> 폴더 내 각 분류 폴더에 올라간 파일을
-          자동으로 불러와 표시합니다.
+          저장소의 <code>papers</code> 폴더 내 각 분류 폴더에 파일을 추가하면,
+          페이지 새로고침 시 아래 표에 자동 반영됩니다.
         </p>
 
-        <h2 class="subsection-title">1. 지방자치</h2>
+        <h2 class="subsection-title">1. 지방자치 (papers/local-autonomy)</h2>
         <table class="list-table" id="papers-local">
           <thead>
             <tr>
@@ -67,10 +68,12 @@
               <th>다운로드</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr><td colspan="2">불러오는 중...</td></tr>
+          </tbody>
         </table>
 
-        <h2 class="subsection-title">2. 자치사상</h2>
+        <h2 class="subsection-title">2. 자치사상 (papers/self-governance)</h2>
         <table class="list-table" id="papers-thought">
           <thead>
             <tr>
@@ -78,10 +81,12 @@
               <th>다운로드</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr><td colspan="2">불러오는 중...</td></tr>
+          </tbody>
         </table>
 
-        <h2 class="subsection-title">3. 지방재정</h2>
+        <h2 class="subsection-title">3. 지방재정 (papers/local-finance)</h2>
         <table class="list-table" id="papers-finance">
           <thead>
             <tr>
@@ -89,10 +94,12 @@
               <th>다운로드</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr><td colspan="2">불러오는 중...</td></tr>
+          </tbody>
         </table>
 
-        <h2 class="subsection-title">4. 행정이론</h2>
+        <h2 class="subsection-title">4. 행정이론 (papers/admin-theory)</h2>
         <table class="list-table" id="papers-admin">
           <thead>
             <tr>
@@ -100,14 +107,17 @@
               <th>다운로드</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr><td colspan="2">불러오는 중...</td></tr>
+          </tbody>
         </table>
       </section>
 
       <section id="columns">
         <h1>칼럼 목록</h1>
         <p class="section-desc">
-          아래 목록은 저장소의 <code>columns</code> 폴더에 올라간 파일을 자동으로 불러와 표시합니다.
+          저장소의 <code>columns</code> 폴더에 파일을 추가하면,
+          페이지 새로고침 시 아래 표에 자동 반영됩니다.
         </p>
         <table class="list-table" id="columns-table">
           <thead>
@@ -116,7 +126,9 @@
               <th>다운로드</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr><td colspan="2">불러오는 중...</td></tr>
+          </tbody>
         </table>
       </section>
     </main>
