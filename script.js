@@ -1,76 +1,83 @@
-// 공통: 2컬럼(파일 이름 / 다운로드)용 렌더 함수
+// GitHub 저장소의 파일 목록을 불러와 표에 채워 넣는 스크립트
+const OWNER = "stkim506";
+const REPO  = "stkim506.github.io";
+
+// 특정 경로(path)의 파일 목록을 GitHub Contents API로 가져오기
+async function fetchFiles(path) {
+  const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.error("GitHub API 오류:", res.status, path);
+      return [];
+    }
+    const data = await res.json();
+
+    // 파일만 골라내고, 숨김 파일(.gitkeep 등)은 제외
+    return data.filter(item =>
+      item.type === "file" &&
+      !item.name.startsWith(".") &&
+      item.name !== ".gitkeep"
+    );
+  } catch (e) {
+    console.error("fetchFiles 예외:", e);
+    return [];
+  }
+}
+
+// 2컬럼(파일 이름 / 다운로드) 테이블 렌더링
 function renderTwoColumnTable(tableId, items) {
   const tbody = document.querySelector(`#${tableId} tbody`);
   if (!tbody) return;
 
-  tbody.innerHTML = '';
+  tbody.innerHTML = "";
 
-  items.forEach(function (item) {
-    const tr = document.createElement('tr');
+  if (!items || items.length === 0) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 2;
+    td.textContent = "등록된 파일이 없습니다.";
+    td.classList.add("empty-row");
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+    return;
+  }
+
+  items.forEach(item => {
+    const tr = document.createElement("tr");
 
     // 1. 파일 이름
-    const nameTd = document.createElement('td');
-    nameTd.textContent = item.name || '';
+    const nameTd = document.createElement("td");
+    nameTd.textContent = item.name || "";
     tr.appendChild(nameTd);
 
-    // 2. 다운로드
-    const linkTd = document.createElement('td');
-    if (item.url) {
-      const a = document.createElement('a');
-      a.href = item.url;
-      a.textContent = '보기 / 다운로드';
-      a.target = '_blank';
-      linkTd.appendChild(a);
-    } else {
-      linkTd.textContent = '-';
-    }
+    // 2. 다운로드 링크
+    const linkTd = document.createElement("td");
+    const a = document.createElement("a");
+    // GitHub Contents API에서 내려주는 download_url 사용
+    a.href = item.download_url || item.html_url;
+    a.textContent = "보기 / 다운로드";
+    a.target = "_blank";
+    linkTd.appendChild(a);
     tr.appendChild(linkTd);
 
     tbody.appendChild(tr);
   });
 }
 
-/*
-  여기는 실제 데이터 넣는 부분입니다.
-  원하시는 파일 경로에 맞게 url만 고쳐서 쓰시면 됩니다.
-*/
+// path에서 파일 목록을 가져와서 해당 테이블에 채우는 헬퍼
+async function loadTable(tableId, path) {
+  const files = await fetchFiles(path);
+  renderTwoColumnTable(tableId, files);
+}
 
-// 1. 지방자치 논문
-const papersLocal = [
-  { name: '개편이론',        url: 'papers/local-autonomy/개편이론.pdf' },
-  { name: '민자사업',        url: 'papers/local-autonomy/민자사업.pdf' },
-  { name: '지역간정의[1]',   url: 'papers/local-autonomy/지역간정의[1].pdf' },
-  { name: '홈룰-김석태',     url: 'papers/local-autonomy/홈룰-김석태.pdf' }
-];
+document.addEventListener("DOMContentLoaded", () => {
+  // 논문: papers 폴더 내부 분류
+  loadTable("papers-local",   "papers/local-autonomy");
+  loadTable("papers-thought", "papers/self-governance");
+  loadTable("papers-finance", "papers/local-finance");
+  loadTable("papers-admin",   "papers/admin-theory");
 
-// 2. 자치사상 논문
-const papersThought = [
-  { name: 'tmp', url: 'papers/self-governance/tmp.pdf' }
-];
-
-// 3. 지방재정 논문
-const papersFinance = [
-  // 예시
-  // { name: '지방재정-논문1', url: 'papers/local-finance/논문1.pdf' }
-];
-
-// 4. 행정이론 논문
-const papersAdmin = [
-  // 예시
-  // { name: '행정이론-논문1', url: 'papers/admin-theory/논문1.pdf' }
-];
-
-// 5. 칼럼
-const columns = [
-  // 예시
-  // { name: '2023년 칼럼1', url: 'columns/2023_칼럼1.pdf' }
-];
-
-// DOM 로드 후 테이블 채우기
-document.addEventListener('DOMContentLoaded', function () {
-  renderTwoColumnTable('papers-local',   papersLocal);
-  renderTwoColumnTable('papers-thought', papersThought);
-  renderTwoColumnTable('papers-finance', papersFinance);
-  renderTwoColumnTable('papers-admin',   papersAdmin);
-  renderTwoColumnTable('columns-table',  columns);
+  // 칼럼: columns 폴더
+  loadTable("columns-table",  "columns");
 });
