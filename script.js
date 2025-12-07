@@ -2,14 +2,9 @@
 // 하드코딩된 파일 목록이 아니라, GitHub Contents API를 통해
 // 현재 저장소 내 폴더의 실제 파일 목록을 사용합니다.
 
-// 현재 도메인 기준으로 OWNER/REPO 추론 (예: stkim506.github.io)
-const host = window.location.host;          // "stkim506.github.io"
-const OWNER = host.split(".")[0] || "stkim506";
-const REPO  = host || (OWNER + ".github.io");
-
-// 필요하다면 직접 지정해도 됩니다.
-// const OWNER = "stkim506";
-// const REPO  = "stkim506.github.io";
+// ★ GitHub 저장소 정보 (고정값으로 명시)
+const OWNER = "stkim506";
+const REPO  = "stkim506.github.io";
 
 // GitHub Contents API에서 특정 경로(path)의 파일 목록 가져오기
 async function fetchFiles(path) {
@@ -20,13 +15,23 @@ async function fetchFiles(path) {
     const res = await fetch(url);
     if (!res.ok) {
       console.error("GitHub API 오류:", res.status, res.statusText);
-      return { error: true, items: [] };
+      return {
+        error: true,
+        status: res.status,
+        message: res.statusText,
+        items: []
+      };
     }
     const data = await res.json();
 
     if (!Array.isArray(data)) {
       console.error("예상치 못한 응답 형식:", data);
-      return { error: true, items: [] };
+      return {
+        error: true,
+        status: 0,
+        message: "Unexpected response",
+        items: []
+      };
     }
 
     // 파일만 골라내고, 숨김 파일(.gitkeep 등)은 제외
@@ -37,10 +42,20 @@ async function fetchFiles(path) {
     );
 
     console.log(path, "에서 불러온 파일:", files.map(f => f.name));
-    return { error: false, items: files };
+    return {
+      error: false,
+      status: 200,
+      message: "OK",
+      items: files
+    };
   } catch (e) {
     console.error("fetchFiles 예외:", e);
-    return { error: true, items: [] };
+    return {
+      error: true,
+      status: 0,
+      message: e?.message || "Exception",
+      items: []
+    };
   }
 }
 
@@ -55,7 +70,15 @@ function renderTwoColumnTable(tableId, result) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
     td.colSpan = 2;
-    td.textContent = "목록을 불러오는 중 오류가 발생했습니다.";
+
+    if (result.status === 403) {
+      td.textContent = "GitHub API 요청이 너무 잦아 일시적으로 제한되었습니다. 잠시 후 다시 시도해 주세요.";
+    } else if (result.status === 404) {
+      td.textContent = "지정한 경로를 찾을 수 없습니다. 폴더 경로나 저장소 이름을 확인해 주세요.";
+    } else {
+      td.textContent = "목록을 불러오는 중 오류가 발생했습니다.";
+    }
+
     td.classList.add("error-row");
     tr.appendChild(td);
     tbody.appendChild(tr);
@@ -87,7 +110,6 @@ function renderTwoColumnTable(tableId, result) {
     const a = document.createElement("a");
 
     // GitHub Contents API에서 내려주는 download_url 사용 (원본 파일)
-    // 일부 형식(.hwp 등)도 브라우저/OS 설정에 따라 다운로드 또는 열기로 동작
     a.href = item.download_url || item.html_url;
     a.textContent = "보기 / 다운로드";
     a.target = "_blank";
